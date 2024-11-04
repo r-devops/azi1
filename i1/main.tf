@@ -85,7 +85,7 @@ resource "azurerm_virtual_machine" "main" {
   os_profile {
     computer_name  = var.instances[count.index]
     admin_username = "az-user"
-    admin_password = "DevOps1234456"
+    admin_password = "DevOps123456"
   }
   os_profile_linux_config {
     disable_password_authentication = false
