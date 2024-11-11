@@ -112,7 +112,7 @@ resource "azurerm_virtual_machine" "main" {
   delete_os_disk_on_termination = true
 
   storage_image_reference {
-    id = "/subscriptions/7b6c642c-6e46-418f-b715-e01b2f871413/resourceGroups/trail1/providers/Microsoft.Compute/galleries/LDOTrail/images/rhel9-devops-practice/versions/27.10.2024"
+    id = "/subscriptions/7b6c642c-6e46-418f-b715-e01b2f871413/resourceGroups/trail1/providers/Microsoft.Compute/galleries/LDOTrail/images/rhel9-devops-practice/versions/07.11.2024"
   }
   storage_os_disk {
     name              = var.instances[count.index]
