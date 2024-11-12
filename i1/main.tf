@@ -10,15 +10,15 @@ variable "prefix" {
 variable "instances" {
   default = [
     "frontend",
-    "cart",
-    "catalogue",
-    "user",
-    "payment",
-    "shipping",
-    "mysql",
-    "mongodb",
-    "rabbitmq",
-    "redis"
+#     "cart",
+#     "catalogue",
+#     "user",
+#     "payment",
+#     "shipping",
+#     "mysql",
+#     "mongodb",
+#     "rabbitmq",
+#     "redis"
   ]
 }
 
@@ -139,4 +139,13 @@ cd ${path.root}/ansible
 bash run.sh ${azurerm_public_ip.main[count.index].ip_address} ${var.instances[count.index]}
 EOF
   }
+}
+
+resource "azurerm_dns_a_record" "record" {
+  count               = length(var.instances)
+  name                = var.instances[count.index]
+  resource_group_name = azurerm_resource_group.main.name
+  ttl                 = 20
+  zone_name           = "rdevopsb80.online"
+  records = [azurerm_network_interface.main[count.index].id]
 }
