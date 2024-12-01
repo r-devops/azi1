@@ -130,22 +130,22 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
-resource "null_resource" "ansible" {
-  depends_on = [azurerm_virtual_machine.main]
-  count                 = length(var.instances)
-  provisioner "local-exec" {
-    command = <<EOF
-cd ${path.root}/ansible
-bash run.sh ${azurerm_public_ip.main[count.index].ip_address} ${var.instances[count.index]}
-EOF
-  }
-}
+# resource "null_resource" "ansible" {
+#   depends_on = [azurerm_virtual_machine.main]
+#   count                 = length(var.instances)
+#   provisioner "local-exec" {
+#     command = <<EOF
+# cd ${path.root}/ansible
+# bash run.sh ${azurerm_public_ip.main[count.index].ip_address} ${var.instances[count.index]}
+# EOF
+#   }
+# }
 
 resource "azurerm_dns_a_record" "record" {
   count               = length(var.instances)
   name                = var.instances[count.index]
-  resource_group_name = azurerm_resource_group.main.name
+  resource_group_name = "trail1"
   ttl                 = 20
   zone_name           = "rdevopsb80.online"
-  records = [azurerm_network_interface.main[count.index].id]
+  records = [azurerm_network_interface.main[count.index].private_ip_address]
 }

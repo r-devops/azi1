@@ -172,7 +172,7 @@ resource "azurerm_image" "main" {
 
 resource "azurerm_shared_image_version" "main" {
   depends_on = [null_resource.ami-process, null_resource.vm-genralize]
-  name                = "07.11.2024"
+  name                = "30.11.2024"
   gallery_name        = "LDOTrail"
   image_name          = "rhel9-devops-practice"
   resource_group_name = local.rg_name
